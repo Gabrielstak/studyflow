@@ -1,0 +1,42 @@
+name: CI — StudyFlow
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  lint-and-test:
+    name: Lint & Testes
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.11"]
+
+    steps:
+      - name: 📥 Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: 🐍 Configurar Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 📦 Instalar dependências de desenvolvimento
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: 🔍 Análise estática com Ruff (lint)
+        run: |
+          ruff check src/ tests/
+
+      - name: 🧪 Executar testes automatizados
+        run: |
+          pytest tests/ --tb=short -v
+
+      - name: 📊 Relatório de cobertura de testes
+        run: |
+          pytest tests/ --cov=src --cov-report=term-missing
