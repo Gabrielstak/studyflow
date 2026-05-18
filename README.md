@@ -1,3 +1,21 @@
+## 🚀 Como executar
+
+### Requisitos
+- Python 3.9+
+
+### Instalação
+```bash
+git clone https://github.com/Gabrielstak/studyflow.git
+cd studyflow/study-organizer
+python -m pip install -r requirements.txt
+```
+
+### Executar
+```bash
+python src/app.py
+```
+
+---
 # 📚 StudyFlow — Organizador de Estudos
 
 [![CI](https://github.com/SEU_USUARIO/studyflow/actions/workflows/ci.yml/badge.svg)](https://github.com/SEU_USUARIO/studyflow/actions/workflows/ci.yml)
